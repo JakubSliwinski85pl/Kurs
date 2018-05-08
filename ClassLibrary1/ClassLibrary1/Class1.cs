@@ -79,6 +79,32 @@ namespace HelloWeb
             string x  = p_fromComment[0].Text;
 
             
+
+            var check_body = browser.FindElement(By.ClassName("comment-body"));
+            var replyBtn = check_body.FindElement(By.PartialLinkText("Reply"));
+            replyBtn.Click();
+            
+            
+            var textBox2 = browser.FindElement(By.Name("comment"));
+            textBox2.Click();
+            string randomReplayText = GenerateText();
+            textBox2.SendKeys(randomReplayText);
+
+            var email_textBox2 = browser.FindElement(By.Id("email"));
+            //  email_textBox1.Click();
+            email_textBox2.SendKeys(GenerateEmail());
+
+            var user_textBox2 = browser.FindElement(By.Id("author"));
+            // user_textBox1.Click();
+            user_textBox2.SendKeys("JŚ");
+            
+            var submi_btn2 = browser.FindElement(By.Name("submit"));
+            submi_btn2.Click();
+
+
+
+
+
             Assert.Equal(randomText, x);
         }
 
