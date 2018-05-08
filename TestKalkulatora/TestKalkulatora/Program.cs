@@ -12,11 +12,40 @@ namespace TestKalkulatora
         static void Main(string[] args)
         {
 
+            Console.WriteLine("Press: 1 - dodawanie, 2 -odejmowanie, 3 - mnozenie,  4 - dzielenie" );
+            var operationType = int.Parse(Console.ReadLine());
+
             var x = int.Parse(Console.ReadLine());
             var y = int.Parse(Console.ReadLine());
 
             var calc = new ExampleCalculator();
-            var result = calc.Add(x, y);
+
+            double result = 0;
+
+            if (operationType == 1)
+            {
+                result = calc.Add(x, y);
+            }
+
+
+            if (operationType == 2)
+            {
+                result = calc.Subtract(x, y);
+            }
+
+
+            if (operationType == 3)
+            {
+                 result = calc.Multiply(x, y);
+            }
+
+
+            if (operationType == 4)
+            {
+                 result = calc.Divide(x, y);
+            }
+
+            
 
             Console.WriteLine("-------");
             Console.WriteLine(result);
@@ -31,22 +60,22 @@ namespace TestKalkulatora
         {
         }
 
-        public int Add(int x, int y)
+        public double Add(int x, int y)
         {
             return x + y;
         }
 
-        public int Subtract(int x, int y)
+        public double Subtract(int x, int y)
         {
             return x - y;
         }
 
-        public int Multiply(int x, int y)
+        public double Multiply(int x, int y)
         {
             return x * y;
         }
 
-        public int Divide(int x, int y)
+        public double Divide(int x, int y)
         {
             return x / y;
         }
