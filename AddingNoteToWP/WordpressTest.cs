@@ -74,11 +74,20 @@ namespace AddingNoteToWP
         internal void InsertPost(ExampleComment testPost)
         {
 
-            var PostFromMenuBtn = _driver.FindElement(By.ClassName("wp-menu-name"));
-            PostFromMenuBtn.Click();
-     
+            var LeftMenu = _driver.FindElements(By.ClassName("wp-menu-name"));
+            var PostBtnFromLeftMenu = LeftMenu.SingleOrDefault(c => c.Text.Contains("Posts"));
+            PostBtnFromLeftMenu.Click();
 
- 
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+
+
+
+
+            var SearchingBTN = _driver.FindElement(By.ClassName("page-title-action"));
+            SearchingBTN.Click();
+
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+
 
 
         }
@@ -96,6 +105,8 @@ namespace AddingNoteToWP
 
             var ContinueButton = _driver.FindElement(By.ClassName("login__form-action"));
             ContinueButton.Click();
+
+            WaitForClickable(_driver.FindElement(By.Id("password")), 100000);
 
             var PasswordField = _driver.FindElement(By.Id("password"));
             PasswordField.Click();
