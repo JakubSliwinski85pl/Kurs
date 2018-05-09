@@ -64,12 +64,15 @@ namespace HelloWeb
             var submi_btn1 = browser.FindElement(By.Name("submit"));
             submi_btn1.Click();
             
-            var check_comment = browser.FindElement(By.ClassName("comment-content"));
-            
-            var p_fromComment = check_comment.FindElements(By.TagName("p"));
+            var check_comment = browser.FindElements(By.ClassName("comment-content"));
+            var check_comment_x = check_comment.SingleOrDefault(c => c.Text.Contains(randomText));
+
+            var p_fromComment = check_comment_x.FindElements(By.TagName("p"));
             int ilosc_p =  p_fromComment.Count();
             string x  = p_fromComment[0].Text;
-                 
+            string numerPosta = p_fromComment[1].GetAttribute("id");
+            string numerPosta1 = numerPosta.Substring(numerPosta.IndexOf("like-")+5);
+
             var check_body = browser.FindElement(By.ClassName("comment-body"));
             var replyBtn = check_body.FindElement(By.PartialLinkText("Reply"));
             replyBtn.Click();
@@ -93,9 +96,15 @@ namespace HelloWeb
             var submi_btn2 = browser.FindElement(By.ClassName("submit"));
             submi_btn2.Click();
 
+            
+
+
+
             var komentarzDoKomentarza = browser.FindElement(By.ClassName("children"));
             var komentarzDoKomentarza_elementP = komentarzDoKomentarza.FindElements(By.TagName("p"));
             var TekstPierwszegoElemntu_p = komentarzDoKomentarza_elementP[0].Text;
+
+
 
 
             Assert.Equal(randomReplayText, TekstPierwszegoElemntu_p);
