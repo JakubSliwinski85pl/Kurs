@@ -1,0 +1,68 @@
+--Komendy GIT
+-----------------
+git commit -m '' [commit z komentarza]
+git log --all --decorate --oneline --graph   [historia comitow]
+
+git squatch - mergowanie commitow
+
+--Comendy cmder
+------------------
+w cmder vi :
+insert - przelaczanie z trybu dopisywania / modyfikacji 
+esc - wejscie w tryb komend
+:wq - wyjscie z zapisem
+:q! - zamyka bez zapisywania (w gicie zamyka commit)
+
+
+vsts - aplikacja spinająca tickety z code
+bitbucket - to samo
+-plugin do spinania jira z githubem
+
+--WisualStudio
+-------------
+ctrl+kk - zmiana nazwy zmiennej we wszystkich miejscach w C#
+
+
+
+
+--TESTY
+-----------
+xUnit
+jUnit 4.0
+nUnit
+
+-xunit - data provider (metoda do wczytywania danych z zewnątrz)
+
+--TEST RUNERY
+---------------
+Microsoft Test Explotrer 
+xunit runner
+team city (wszystko trzeba wykilikiwać)
+bamboo
+jenkins (można rozbić wykonaie na wiele gałęzi)
+
+
+
+--STRONY FAJNE:
+----------------
+http://unlocalize.com/  - tlumaczenie exceptionow z .NET
+
+
+--TEORIA
+---------
+
+*TEST FIRST*
+F - FAST 
+I - INDEPENDENTLY 
+R - REPEADETLY / RELIABLY 
+S - SELF-VALIDATING
+T - TIMELY (jak najwczesniej sie da testować)
+
+
+
+---SELENIUM
+Implicite wait
+
+
+
+
