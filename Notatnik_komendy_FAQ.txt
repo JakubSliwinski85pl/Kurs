@@ -60,6 +60,11 @@ T - TIMELY (jak najwczesniej sie da testować)
 
 
 
+*CRUD*
+
+
+
+
 ---SELENIUM
 Implicite wait
 
