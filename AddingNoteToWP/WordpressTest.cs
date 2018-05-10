@@ -14,7 +14,6 @@ namespace AddingNoteToWP
     {
         private const string PageUrl = "https://autotestdotnet.wordpress.com/wp-admin";
         private readonly IWebDriver driver;
-       // private readonly ExampleComment testComment;
         private readonly ExampleComment testPost;
         private readonly TestCredentials testCredentials;
 
@@ -59,7 +58,7 @@ namespace AddingNoteToWP
     internal class Page
     {
         private IWebDriver _driver;
-        private string _PageUrl;
+        private readonly string _PageUrl;
 
         public Page(IWebDriver driver, string PageUrl)
         {
@@ -70,62 +69,9 @@ namespace AddingNoteToWP
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
         }
 
-        internal bool CheckAssert(ExampleComment testPost)
-        {
-            bool AssertResult = false;
-
-            var AssertTitle = _driver.FindElement(By.ClassName("entry-title")).Text;
-
-            var AssertContent = _driver.FindElement(By.ClassName("entry-content"));
-            var AssertText = AssertContent.FindElement(By.TagName("p")).Text;
-
-           if (testPost.Text == AssertText && testPost.Title == AssertTitle)
-            {
-                AssertResult = true;
-            }
-
-            return AssertResult;
-        }
-
-        internal string InsertPost(ExampleComment testPost)
-        {
-            var LeftMenu = _driver.FindElements(By.ClassName("wp-menu-name"));
-            var PostBtnFromLeftMenu = LeftMenu.SingleOrDefault(c => c.Text.Contains("Posts"));
-            PostBtnFromLeftMenu.Click();
-
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
-            
-            var SearchingBTN = _driver.FindElement(By.ClassName("page-title-action"));
-            SearchingBTN.Click();
-
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
-   
-            var TitleField = _driver.FindElement(By.Id("title"));
-            TitleField.Click();
-            TitleField.SendKeys(testPost.Title);
-
-            var TextField = _driver.FindElement(By.Id("content"));
-            TextField.Click();
-            TextField.SendKeys(testPost.Text);
-
-            WaitForClickable(_driver.FindElement(By.Id("edit-slug-buttons")), 100000);
-            var EditBtnWaitFor = _driver.FindElement(By.Id("edit-slug-buttons"));
-            var PublishBtnWaitFor = _driver.FindElement(By.Id("publish"));
-
-            var permamentLink = _driver.FindElement(By.Id("edit-slug-box"));
-            var permamentLink_s = permamentLink.FindElement(By.TagName("a"));
-             string CheckUrl = permamentLink_s.GetAttribute("href");
-
-            PublishBtnWaitFor.Click();
-
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(4);
-                        
-            return CheckUrl;            
-        }
-        
         internal void Login(TestCredentials TestCredentials)
         {
-            WaitForClickable(_driver.FindElement(By.Id("usernameOrEmail")),100000);
+            WaitForClickable(_driver.FindElement(By.Id("usernameOrEmail")), 100000);
 
             var LoginField = _driver.FindElement(By.Id("usernameOrEmail"));
             LoginField.Click();
@@ -143,20 +89,63 @@ namespace AddingNoteToWP
             var LogInButton = _driver.FindElement(By.ClassName("login__form-action"));
             ContinueButton.Click();
 
-            _driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(5);
         }
 
+        internal string InsertPost(ExampleComment testPost)
+        {
+            var LeftMenu = _driver.FindElements(By.ClassName("wp-menu-name"));
+            var PostBtnFromLeftMenu = LeftMenu.SingleOrDefault(c => c.Text.Contains("Posts"));
+            PostBtnFromLeftMenu.Click();
+ 
+            var SearchingBTN = _driver.FindElement(By.ClassName("page-title-action"));
+            SearchingBTN.Click();
+
+            var TitleField = _driver.FindElement(By.Id("title"));
+            TitleField.Click();
+            TitleField.SendKeys(testPost.Title);
+
+            var TextField = _driver.FindElement(By.Id("content"));
+            TextField.Click();
+            TextField.SendKeys(testPost.Text);
+
+            WaitForClickable(_driver.FindElement(By.Id("edit-slug-buttons")), 100000);
+            var EditBtnWaitFor = _driver.FindElement(By.Id("edit-slug-buttons"));
+            var PublishBtnWaitFor = _driver.FindElement(By.Id("publish"));
+
+            var permamentLink = _driver.FindElement(By.Id("edit-slug-box"));
+            var permamentLink_s = permamentLink.FindElement(By.TagName("a"));
+             string CheckUrl = permamentLink_s.GetAttribute("href");
+
+            PublishBtnWaitFor.Click();
+                        
+            return CheckUrl;            
+        }
+        
         internal void Logout()
         {
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
 
             var Avatar = _driver.FindElement(By.Id("wp-admin-bar-my-account"));
             Avatar.Click();
 
             var SingOut_find = _driver.FindElement(By.TagName("form"));
             SingOut_find.Click();
+        }
 
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(1);
+        internal bool CheckAssert(ExampleComment testPost)
+        {
+            bool AssertResult = false;
+
+            var AssertTitle = _driver.FindElement(By.ClassName("entry-title")).Text;
+
+            var AssertContent = _driver.FindElement(By.ClassName("entry-content"));
+            var AssertText = AssertContent.FindElement(By.TagName("p")).Text;
+
+            if (testPost.Text == AssertText && testPost.Title == AssertTitle)
+            {
+                AssertResult = true;
+            }
+
+            return AssertResult;
         }
 
         private void WaitForClickable(IWebElement by, int seconds)
