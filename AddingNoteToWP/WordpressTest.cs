@@ -88,7 +88,6 @@ namespace AddingNoteToWP
 
             var LogInButton = _driver.FindElement(By.ClassName("login__form-action"));
             ContinueButton.Click();
-
         }
 
         internal string InsertPost(ExampleComment testPost)
@@ -109,6 +108,7 @@ namespace AddingNoteToWP
             TextField.SendKeys(testPost.Text);
 
             WaitForClickable(_driver.FindElement(By.Id("edit-slug-buttons")), 100000);
+
             var EditBtnWaitFor = _driver.FindElement(By.Id("edit-slug-buttons"));
             var PublishBtnWaitFor = _driver.FindElement(By.Id("publish"));
 
@@ -123,7 +123,6 @@ namespace AddingNoteToWP
         
         internal void Logout()
         {
-
             var Avatar = _driver.FindElement(By.Id("wp-admin-bar-my-account"));
             Avatar.Click();
 
@@ -182,17 +181,17 @@ namespace AddingNoteToWP
 
         private string GenerateComment()
         {
-            return Guid.NewGuid().ToString();
+            return ((Guid.NewGuid().ToString()).GetHashCode()).ToString();
         }
 
         private string GenerateTitle()
         {
-            return "JŚ" + " " + Guid.NewGuid().ToString();
+            return "JŚ" + " " + (Guid.NewGuid().ToString()).GetHashCode();
         }
 
         private string GenerateUserName()
         {
-            return "JŚ" + " " + Guid.NewGuid().ToString();
+            return "JŚ" + " " + (Guid.NewGuid().ToString()).GetHashCode();
         }
     }
 }
